@@ -9,7 +9,7 @@
 ```
 import "std" { panic }
 
-use def Option<T> = T | Null {
+use def Option[:T] = T | Null {
 	fun some(v: T): Self { v as Self }
 
 	fun none(): Self { Nil as Self }
