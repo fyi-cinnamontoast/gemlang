@@ -24,11 +24,9 @@ use def Option<T> = T | Null {
 	}
 
 	fun unwrap_or(self, cb: fun(): T): T {
-		if self is T {
-			self as T
-		}
-		else {
-			cb()
+		match self as {
+			T { self }
+			Null { cb() }
 		}
 	}
 }
