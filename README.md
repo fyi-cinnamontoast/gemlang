@@ -2,7 +2,7 @@
 
 # About
 
-**Gem** is a scripting Just-In-Time compiled programming language.
+**Gem** is a scripting Just-In-Time or Ahead-of-Time compiled programming language.
 
 # Example
 ```
