@@ -9,7 +9,7 @@
 ```
 import "std" { panic }
 
-use def Option[:T] = T | Null {
+with def Option[:T] = T | Null {
 	fun some(v: T): Self { v as Self }
 
 	fun none(): Self { Nil as Self }
@@ -62,7 +62,7 @@ println(res) // Hello
 ```
 - Type Expansion (compile time)
 ```
-use def SomeType {
+with def SomeType {
 	var hello = "Hello, World!"
 }
 var SomeType::expansion = "EXPANDED"
