@@ -10,24 +10,24 @@
 import "std" { panic }
 
 with def Option[:T] = T | Null {
-	fun some(v: T): Self { v as Self }
+	fun some(v: T): Self { v as Self |> }
 
-	fun none(): Self { Nil as Self }
+	fun none(): Self { Nil as Self |> }
 
-	fun is_some(self): Boolean { self is T }
+	fun is_some(self): Boolean { self is T |> }
 
-	fun is_none(self): Boolean { self is Null }
+	fun is_none(self): Boolean { self is Null |> }
 
 	fun unwrap(self): T {
 		self.unwrap_or(fun() { 
 			panic("Calling `Option::unwrap()` on none") 
-		})
+		}) |>
 	}
 
 	fun unwrap_or(self, cb: fun(): T): T {
 		match self as {
-			T { self }
-			Null { cb() }
+			T { self |> }
+			Null { cb() |> }
 		}
 	}
 }
