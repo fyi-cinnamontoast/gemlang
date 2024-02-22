@@ -19,16 +19,16 @@ with def Option[:T] = T | Null {
 	fun is_none(self): Boolean { self is Null |> }
 
 	fun unwrap(self): T {
-		self.unwrap_or(fun() { 
+		return self.unwrap_or(fun() { 
 			panic("Calling `Option::unwrap()` on none") 
-		}) |>
+		})
 	}
 
 	fun unwrap_or(self, cb: fun(): T): T {
-		match self as {
+		return match self as {
 			T { self |> }
 			Null { cb() |> }
-		} |>
+		}
 	}
 }
 
