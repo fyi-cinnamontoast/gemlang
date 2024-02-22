@@ -28,7 +28,7 @@ with def Option[:T] = T | Null {
 		match self as {
 			T { self |> }
 			Null { cb() |> }
-		}
+		} |>
 	}
 }
 
