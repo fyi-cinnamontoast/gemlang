@@ -24,7 +24,7 @@ with def Option[:T] = T | Null {
 		})
 	}
 
-	func unwrap_or(self, cb: fun(): T): T {
+	func unwrap_or(self, cb: func(): T): T {
 		return match self as {
 			T { self |> }
 			Null { cb() |> }
@@ -38,7 +38,7 @@ with def Option[:T] = T | Null {
 var data = Vector::new[:String]()
 async var mutex_data = Vector::new[:String]() // Mutex
 
-Thread::spawn(async (i: UInt) {
+Thread::spawn(async func(i: UInt) {
 	// !!!DANGER!!!
 	unsafe { 
 		data.push_back("Hello, World from thread #%0" % { i }) 
