@@ -10,21 +10,21 @@
 import "std" { panic }
 
 with def Option[:T] = T | Null {
-	func some(v: T): Self { v as Self |> }
+	func some(v: T) -> Self { v as Self |> }
 
-	func none(): Self { Nil as Self |> }
+	func none() -> Self { Nil as Self |> }
 
-	func is_some(self): Boolean { self is T |> }
+	func is_some(self) -> Boolean { self is T |> }
 
-	func is_none(self): Boolean { self is Null |> }
+	func is_none(self) -> Boolean { self is Null |> }
 
-	func unwrap(self): T {
-		return self.unwrap_or(fun() { 
+	func unwrap(self) -> T {
+		return self.unwrap_or(func() { 
 			panic("Calling `Option::unwrap()` on none") 
 		})
 	}
 
-	func unwrap_or(self, cb: func(): T): T {
+	func unwrap_or(self, cb: func() -> T) -> T {
 		return match self as {
 			T { self |> }
 			Null { cb() |> }
@@ -39,6 +39,7 @@ var data = Vector::new[:String]()
 async var mutex_data = Vector::new[:String]() // Mutex
 
 Thread::spawn(async func(i: UInt) {
+	Thread::sleep(i * 1000)
 	// !!!DANGER!!!
 	unsafe { 
 		data.push_back("Hello, World from thread #%0" % { i }) 
@@ -49,7 +50,7 @@ Thread::spawn(async func(i: UInt) {
 ```
 - Pipes (`|>`)
 ```
-func hello(b: Boolean) {
+func hello(b: Boolean) -> String {
 	return if (b) {
 		static const letters = [ "H", "e", "l", "l", "o" ]
 		letter.join("") |>
