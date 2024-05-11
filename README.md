@@ -1,29 +1,35 @@
 Gem is a statically typed JIT compiled programming language that is easy to use and integrate, while being safe, powerful, and fast.
 
-# Option
-```
+# Option (Syntax Example)
+``` gem
 type Option[:T] = (Null | T, )
 
-func Option[:T]::some(val: T) -> Self {
+pub func Option[:T]::some(val: T) -> Self {
   (val as Self, ) |>
 }
 
-func Option[:T]::none() -> Self {
+pub func Option[:T]::none() -> Self {
   (nil as Self, ) |>
 }
 
-func Option[:T]::unwrap(self) -> T {
-  match self.0 as {
-    T { self.0 as T |> }
-    Null { panic("Calling Option[:T]::unwrap() on none!") }
-  } |>
+pub func Option[:T]::unwrap(self) -> T {
+  self.unwrap_or(func() {
+    panic("Option::unwrap() called on none!");
+  })
+}
+
+pub func Option[:T]::unwrap_or(self, cb: func() -> T) {
+  return match self.0 as {
+    T(val) { val |> }
+    Null(_) { cb() |> }
+  }
 }
 ```
 # Thread Safety
-```
-async mut data: Vector<i64> = Vector::new() // Mutex
+``` gem
+mut data: Vector<i64> = Vector::new()
 
-Thread::spawn(async func(id) {
+Thread::spawn(func(id) {
   data.append(id) // Blocked per each thread
 }).all_done(func() {
   for d in data {
