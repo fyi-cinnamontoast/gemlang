@@ -22,6 +22,10 @@
 
 typedef struct GemIRContext GemIRContext;
 
+typedef struct GemIRType GemIRType;
+typedef struct GemIRValue GemIRValue;
+typedef struct GemIRFunc GemIRFunc;
+
 GemIRContext* gemir_newContext(void);
 void gemir_freeContext(GemIRContext*);
 

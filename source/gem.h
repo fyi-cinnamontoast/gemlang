@@ -20,4 +20,6 @@
 
 #include "gemconf.h"
 
+typedef struct GemContext GemContext;
+
 #endif
